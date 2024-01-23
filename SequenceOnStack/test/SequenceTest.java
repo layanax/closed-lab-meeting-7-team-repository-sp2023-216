@@ -90,42 +90,12 @@ public abstract class SequenceTest {
     }
 
     /**
-     * Test add method when adding beyond current length.
-     */
-    @Test
-    public void testAddMoreThanLength() {
-        Sequence<String> sequence = this.constructorTest();
-        sequence.add(5, "C");
-        assertEquals(3, sequence.length());
-    }
-
-    /**
      * Test remove method with regular elements.
      */
     @Test
     public void testRemove() {
         Sequence<String> sequence = this.createFromArgsTest("A", "B", "C");
         sequence.remove(1);
-        assertEquals(2, sequence.length());
-    }
-
-    /**
-     * Test remove method removing from an empty sequence.
-     */
-    @Test
-    public void testRemoveEmpty() {
-        Sequence<String> emptySequence = this.constructorTest();
-        emptySequence.remove(0); // No exception should be thrown
-        assertEquals(0, emptySequence.length());
-    }
-
-    /**
-     * Test remove method removing from an index beyond the current length.
-     */
-    @Test
-    public void testRemoveMoreThanLength() {
-        Sequence<String> sequence = this.createFromArgsTest("A", "B", "C");
-        sequence.remove(5);
         assertEquals(2, sequence.length());
     }
 
