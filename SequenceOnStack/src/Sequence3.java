@@ -60,7 +60,12 @@ public class Sequence3<T> extends SequenceSecondary<T> {
         assert newLeftLength <= leftStack.length() + rightStack.length() : ""
                 + "Violation of: newLeftLength <= |leftStack| + |rightStack|";
 
-        // TODO - fill in body
+        while (leftStack.length() > newLeftLength && rightStack.length() > 0) {
+            rightStack.push(leftStack.pop());
+        }
+        while (leftStack.length() < newLeftLength && rightStack.length() > 0) {
+            leftStack.push(rightStack.pop());
+        }
 
     }
 
