@@ -153,10 +153,8 @@ public class Sequence3<T> extends SequenceSecondary<T> {
     @Override
     public final int length() {
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        int length = this.right.length() + this.left.length();
+        return length;
     }
 
     @Override
