@@ -147,4 +147,13 @@ public abstract class SequenceTest {
         assertEquals(0, emptySequence.length());
     }
 
+    @Test
+    public void testRemovingFirstElement() {
+        Sequence<String> seq = this.createFromArgsTest("1", "2", "3");
+        String test = seq.remove(0);
+
+        assert (test.equals("1"));
+        assert (seq.length() == 2);
+    }
+
 }
