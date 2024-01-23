@@ -135,8 +135,8 @@ public class Sequence3<T> extends SequenceSecondary<T> {
         assert 0 <= pos : "Violation of: 0 <= pos";
         assert pos <= this.length() : "Violation of: pos <= |this|";
 
-        // TODO - fill in body
-
+        setLengthOfLeftStack(this.left, this.right, pos);
+        this.right.push(x);
     }
 
     @Override
@@ -144,10 +144,10 @@ public class Sequence3<T> extends SequenceSecondary<T> {
         assert 0 <= pos : "Violation of: 0 <= pos";
         assert pos < this.length() : "Violation of: pos < |this|";
 
-        // TODO - fill in body
+        setLengthOfLeftStack(this.left, this.right, pos + 1);
+        T thingy = this.left.pop();
 
-        // This line added just to make the component compilable.
-        return null;
+        return thingy;
     }
 
     @Override
