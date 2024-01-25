@@ -45,18 +45,8 @@ public class Set2<T> extends SetSecondary<T> {
     private static <T> void moveToFront(Queue<T> q, T x) {
         assert q != null : "Violation of: q is not null";
 
-        Queue<T> left = q.newInstance();
-        Queue<T> right = q.newInstance();
-        while (q.length() != 0) {
-            T digit = q.dequeue();
-            if (digit.equals(x)) {
-                left.enqueue(digit);
-            } else {
-                right.enqueue(digit);
-            }
-        }
-        left.append(right);
-        q.transferFrom(left);
+        // TODO - fill in body
+
     }
 
     /**
@@ -122,7 +112,16 @@ public class Set2<T> extends SetSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert !this.contains(x) : "Violation of: x is not in this";
 
-        // TODO - fill in body
+        moveToFront(this.elements, x);
+        T temp = this.elements.dequeue();
+        if(temp.equals(x)) {
+            this.elements.enqueue(temp);
+        }
+        else {
+            this.elements.enqueue(temp);
+            this.elements.enqueue(x);
+        }
+        
 
     }
 
@@ -131,39 +130,42 @@ public class Set2<T> extends SetSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert this.contains(x) : "Violation of: x is in this";
 
-        // TODO - fill in body
+        moveToFront(this.elements, x);
+        T temp = this.elements.dequeue();
+        if(!temp.equals(x)) {
+            this.elements.enqueue(temp);
+        }
 
         // This line added just to make the component compilable.
-        return null;
+        return x;
     }
 
     @Override
     public final T removeAny() {
         assert this.size() > 0 : "Violation of: |this| > 0";
 
-        // TODO - fill in body
+        T temp = this.elements.dequeue();
 
         // This line added just to make the component compilable.
-        return null;
+        return temp;
     }
 
     @Override
     public final boolean contains(T x) {
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
+        moveToFront(this.elements, x);
+        T temp = this.elements.dequeue();
+        this.elements.enqueue(temp);
 
         // This line added just to make the component compilable.
-        return false;
+        return temp.equals(x);
     }
 
     @Override
     public final int size() {
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        return this.elements.length();
     }
 
     @Override
