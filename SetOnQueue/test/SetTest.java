@@ -1,3 +1,9 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import components.set.Set;
 
 /**
@@ -64,6 +70,74 @@ public abstract class SetTest {
         return set;
     }
 
-    // TODO - add test cases for constructor, add, remove, removeAny, contains, and size
+    /**
+     * Tests for constructor with an empty set.
+     */
+    @Test
+    public void testConstructorEmptySet() {
+        Set<String> set = this.constructorTest();
+        assertTrue(set.size() == 0);
+        assertEquals(0, set.size());
+    }
+
+    /**
+     * Tests for add method with a simple set.
+     */
+    @Test
+    public void testAdd() {
+        Set<String> set = this.constructorTest();
+        set.add("A");
+        set.add("B");
+        assertTrue(set.contains("A"));
+        assertTrue(set.contains("B"));
+        assertFalse(set.contains("C"));
+        assertEquals(2, set.size());
+    }
+
+    /**
+     * Tests for remove method with a simple set.
+     */
+    @Test
+    public void testRemove() {
+        Set<String> set = this.createFromArgsTest("A", "B", "C");
+        set.remove("B");
+        assertFalse(set.contains("B"));
+        assertEquals(2, set.size());
+    }
+
+    /**
+     * Tests for removeAny method with a simple set.
+     */
+    @Test
+    public void testRemoveAny() {
+        Set<String> set = this.createFromArgsTest("A", "B", "C");
+        String removed = set.removeAny();
+        assertFalse(set.contains(removed));
+        assertEquals(2, set.size());
+    }
+
+    /**
+     * Tests for contains method with a simple set.
+     */
+    @Test
+    public void testContains() {
+        Set<String> set = this.createFromArgsTest("A", "B");
+        assertTrue(set.contains("A"));
+        assertTrue(set.contains("B"));
+        assertFalse(set.contains("C"));
+    }
+
+    /**
+     * Test for size method with a simple set.
+     */
+    @Test
+    public void testSize() {
+        Set<String> set = this.createFromArgsTest("A", "B", "C");
+        assertEquals(3, set.size());
+        set.remove("B");
+        assertEquals(2, set.size());
+        set.removeAny();
+        assertEquals(1, set.size());
+    }
 
 }
