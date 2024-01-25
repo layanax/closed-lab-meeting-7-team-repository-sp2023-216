@@ -123,17 +123,18 @@ public class Set2<T> extends SetSecondary<T> {
     public final void add(T x) {
         assert x != null : "Violation of: x is not null";
         assert !this.contains(x) : "Violation of: x is not in this";
-
-        moveToFront(this.elements, x);
-        T temp = this.elements.dequeue();
-        if(temp.equals(x)) {
-            this.elements.enqueue(temp);
-        }
-        else {
-            this.elements.enqueue(temp);
+        if (this.elements.length() == 0) {
             this.elements.enqueue(x);
+        } else {
+            moveToFront(this.elements, x);
+            T temp = this.elements.dequeue();
+            if (temp.equals(x)) {
+                this.elements.enqueue(temp);
+            } else {
+                this.elements.enqueue(temp);
+                this.elements.enqueue(x);
+            }
         }
-        
 
     }
 
@@ -144,7 +145,7 @@ public class Set2<T> extends SetSecondary<T> {
 
         moveToFront(this.elements, x);
         T temp = this.elements.dequeue();
-        if(!temp.equals(x)) {
+        if (!temp.equals(x)) {
             this.elements.enqueue(temp);
         }
 
@@ -165,13 +166,16 @@ public class Set2<T> extends SetSecondary<T> {
     @Override
     public final boolean contains(T x) {
         assert x != null : "Violation of: x is not null";
-
-        moveToFront(this.elements, x);
-        T temp = this.elements.dequeue();
-        this.elements.enqueue(temp);
+        boolean check = false;
+        if (this.elements.length() > 0) {
+            moveToFront(this.elements, x);
+            T temp = this.elements.dequeue();
+            this.elements.enqueue(temp);
+            check = temp.equals(x);
+        }
 
         // This line added just to make the component compilable.
-        return temp.equals(x);
+        return check;
     }
 
     @Override
