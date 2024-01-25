@@ -47,6 +47,8 @@ public class Set2<T> extends SetSecondary<T> {
 
         Queue<T> left = q.newInstance();
         Queue<T> right = q.newInstance();
+
+        //small change
         while (q.length() != 0) {
             T digit = q.dequeue();
             if (digit.equals(x)) {
