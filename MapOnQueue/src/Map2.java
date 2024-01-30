@@ -56,8 +56,23 @@ public class Map2<K, V> extends MapSecondary<K, V> {
         assert q != null : "Violation of: q is not null";
         assert key != null : "Violation of: key is not null";
 
-        // TODO - fill in body
+        //temp queue to store pairs
+        Queue<Pair<K, V>> tempQueue = q.newInstance();
 
+        //move pairs with specified key to front of queue
+        while (q.length() > 0) {
+            Pair<K, V> pair = q.dequeue();
+            if (pair.key().equals(key)) {
+                tempQueue.enqueue(pair); // Move pair to front
+            } else {
+                q.enqueue(pair);
+            }
+        }
+
+        //move all other pairs back to original queue
+        while (tempQueue.length() > 0) {
+            q.enqueue(tempQueue.dequeue());
+        }
     }
 
     /**
@@ -124,8 +139,8 @@ public class Map2<K, V> extends MapSecondary<K, V> {
         assert value != null : "Violation of: value is not null";
         assert !this.hasKey(key) : "Violation of: key is not in DOMAIN(this)";
 
-        // TODO - fill in body
-
+        Pair<K, V> pair = new SimplePair<>(key, value);
+        this.pairsQueue.enqueue(pair);
     }
 
     @Override
@@ -133,20 +148,36 @@ public class Map2<K, V> extends MapSecondary<K, V> {
         assert key != null : "Violation of: key is not null";
         assert this.hasKey(key) : "Violation of: key is in DOMAIN(this)";
 
-        // TODO - fill in body
+        Pair<K, V> removedPair = null;
+        boolean found = false;
 
-        // This line added just to make the component compilable.
-        return null;
+        //temp queue to hold pairs
+        Queue<Pair<K, V>> tempQueue = new Queue1L<>();
+
+        //remove pairs with specified key from queue
+        while (this.size() > 0) {
+            Pair<K, V> pair = this.pairsQueue.dequeue();
+            if (!found && pair.key().equals(key)) {
+                removedPair = pair; //store removed pair
+                found = true;
+            } else {
+                tempQueue.enqueue(pair); //enqueue other pairs back into tempQueue
+            }
+        }
+
+        //re-enqueue pairs back into original queue
+        while (tempQueue.length() > 0) {
+            this.pairsQueue.enqueue(tempQueue.dequeue());
+        }
+
+        return removedPair;
     }
 
     @Override
     public final Pair<K, V> removeAny() {
         assert this.size() > 0 : "Violation of: |this| > 0";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        return this.pairsQueue.dequeue();
     }
 
     @Override
@@ -154,29 +185,32 @@ public class Map2<K, V> extends MapSecondary<K, V> {
         assert key != null : "Violation of: key is not null";
         assert this.hasKey(key) : "Violation of: key is in DOMAIN(this)";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        V value = null;
+        for (Pair<K, V> pair : this.pairsQueue) {
+            if (pair.key().equals(key)) {
+                value = pair.value();
+            }
+        }
+        return value;
     }
 
     @Override
     public final boolean hasKey(K key) {
         assert key != null : "Violation of: key is not null";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return false;
+        boolean found = false;
+        for (Pair<K, V> pair : this.pairsQueue) {
+            if (pair.key().equals(key)) {
+                found = true;
+            }
+        }
+        return found;
     }
 
     @Override
     public final int size() {
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        return this.pairsQueue.length();
     }
 
     @Override

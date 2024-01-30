@@ -1,10 +1,18 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import components.map.Map;
+import components.map.Map.Pair;
 
 /**
  * JUnit test fixture for {@code Map<String, String>}'s constructor and kernel
  * methods.
  *
- * @author Put your name here
+ * @author Layan Abdallah
  *
  */
 public abstract class MapTest {
@@ -78,5 +86,91 @@ public abstract class MapTest {
     }
 
     // TODO - add test cases for constructor, add, remove, removeAny, value, hasKey, and size
+
+    @Test
+    public void testRemoveAny() {
+        Map<String, String> testMap = this.constructorTest();
+        testMap.add("one", "1");
+        assertNotNull(testMap.removeAny());
+        assertFalse(testMap.hasKey("one"));
+    }
+
+    @Test
+    public void testAdd() {
+        Map<String, String> testMap = this.constructorTest();
+        Map<String, String> refMap = this.constructorRef();
+
+        testMap.add("k1", "v1");
+        refMap.add("k1", "v1");
+
+        assertEquals(refMap, testMap);
+    }
+
+    @Test
+    public void testRemove() {
+        Map<String, String> testMap = this.constructorTest();
+        Map<String, String> refMap = this.constructorRef();
+
+        testMap.add("k1", "k2");
+        testMap.add("k2", "v2");
+        refMap.add("k1", "v1");
+        refMap.add("k2", "v2");
+
+        testMap.remove("k1");
+        refMap.remove("k1");
+
+        assertEquals(refMap, testMap);
+    }
+
+    @Test
+    public void testRemoveToEmpty() {
+        Map<String, String> m = this.createFromArgsTest("red", "one");
+        Map<String, String> mExpected = this.createFromArgsTest("red", "one");
+
+        Pair<String, String> p = m.remove("red");
+        Pair<String, String> pExpected = mExpected.remove("red");
+    }
+
+    @Test
+    public void testValue() {
+        Map<String, String> testMap = this.constructorTest();
+
+        testMap.add("k1", "v1");
+        testMap.add("k2", "v2");
+
+        assertEquals("v1", testMap.value("k1"));
+        assertEquals("v2", testMap.value("k2"));
+    }
+
+    @Test
+    public void testHasKey() {
+        Map<String, String> testMap = this.constructorTest();
+
+        testMap.add("k1", "v1");
+        testMap.add("k2", "v1");
+
+        assertTrue(testMap.hasKey("k1"));
+        assertTrue(testMap.hasKey("k2"));
+        assertFalse(testMap.hasKey("k3"));
+    }
+
+    @Test
+    public void testSize() {
+        Map<String, String> testMap = this.constructorTest();
+
+        testMap.add("k1", "v1");
+        testMap.add("k2", "v2");
+
+        assertEquals(2, testMap.size());
+    }
+
+    @Test
+    public void testConstructorWithEntries() {
+        Map<String, String> map = this.createFromArgsTest("key1", "value1",
+                "key2", "value2");
+        assertEquals(2, map.size());
+        assertTrue(map.hasKey("key1"));
+        assertTrue(map.hasKey("key2"));
+    }
 
 }
