@@ -123,6 +123,7 @@ public class Set2<T> extends SetSecondary<T> {
     public final void add(T x) {
         assert x != null : "Violation of: x is not null";
         assert !this.contains(x) : "Violation of: x is not in this";
+
         if (this.elements.length() == 0) {
             this.elements.enqueue(x);
         } else {
