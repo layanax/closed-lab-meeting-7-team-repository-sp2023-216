@@ -13,6 +13,42 @@ import components.simplewriter.SimpleWriter1L;
  * @author Layan Abdallah
  *
  */
+
+//Questions from 5:
+//The file that came from the adversary is likely "mod30.txt". When
+//using a table size relatively prime to 30, such as a prime number around 1000,
+//the impact of the adversary's scheme is lessened, but the distribution might
+//still not be optimal depending on the characteristics of the input data. Using
+//an actual prime number as the table size might have an advantage because it can
+//provide a more uniform distribution and reduce the likelihood of collisions for
+//certain types of input data. However, the advantage may not always be significant
+//compared to using a number that is merely relatively prime to certain values.
+//The hash function implemented in this code may not be doing a "good" job in
+//distributing the values evenly among the buckets, especially for certain input
+//data. It could be improved by implementing a more sophisticated hash function
+//tailored to characteristics of the input data.
+
+//Questions from 6:
+//The file with the surprising distribution of bucket hits is likely
+//"src/HashingExploration.java".The distribution looks surprising because source
+//code files often contain patterns and structures that are not present in natural
+//language text files.This can lead to non-uniform distributions when using a
+//simple hash function like summing the char values.
+
+//Questions from 7:
+//The program calculates its results by hashing the lines of its own source code
+//and then reporting the distribution of those hashed values among the buckets.
+//This additional test does not necessarily shake confidence in the "goodness" of
+//the hash function because source code files have different characteristics compared
+//to natural language text files. However, it highlights the limitations of the
+//hash function when dealing with certain types of data.
+
+//Questions from 8:
+//The alternate hash function should be chosen based on its ability to distribute
+//the values evenly among the buckets for various types of input data. It should
+//provide better performance than the original hash function in terms of minimizing
+//collisions and achieving a more uniform distribution.
+
 public final class HashingExploration {
 
     /**
@@ -38,11 +74,12 @@ public final class HashingExploration {
     public static int mod(int a, int b) {
         assert b > 0 : "Violation of: b > 0";
 
-        int result = a % b;
-        if (result < 0) {
-            result += b;
+        //this is the version from class, but I had the same implementation before
+        int mod = a % b;
+        if (mod < 0) {
+            mod += b;
         }
-        return result;
+        return mod;
 
     }
 
@@ -57,10 +94,11 @@ public final class HashingExploration {
     private static int hashCode(String s) {
         assert s != null : "Violation of: s is not null";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        int hashCode = 0;
+        for (int i = 0; i < s.length(); i++) {
+            hashCode += s.charAt(i);
+        }
+        return hashCode;
     }
 
     /**
