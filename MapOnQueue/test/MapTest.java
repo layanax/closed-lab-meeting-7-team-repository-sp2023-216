@@ -99,10 +99,8 @@ public abstract class MapTest {
     public void testAdd() {
         Map<String, String> testMap = this.constructorTest();
         Map<String, String> refMap = this.constructorRef();
-
         testMap.add("k1", "v1");
         refMap.add("k1", "v1");
-
         assertEquals(refMap, testMap);
     }
 
@@ -110,15 +108,12 @@ public abstract class MapTest {
     public void testRemove() {
         Map<String, String> testMap = this.constructorTest();
         Map<String, String> refMap = this.constructorRef();
-
         testMap.add("k1", "k2");
         testMap.add("k2", "v2");
         refMap.add("k1", "v1");
         refMap.add("k2", "v2");
-
         testMap.remove("k1");
         refMap.remove("k1");
-
         assertEquals(refMap, testMap);
     }
 
@@ -126,7 +121,6 @@ public abstract class MapTest {
     public void testRemoveToEmpty() {
         Map<String, String> m = this.createFromArgsTest("red", "one");
         Map<String, String> mExpected = this.createFromArgsTest("red", "one");
-
         Pair<String, String> p = m.remove("red");
         Pair<String, String> pExpected = mExpected.remove("red");
     }
@@ -134,10 +128,8 @@ public abstract class MapTest {
     @Test
     public void testValue() {
         Map<String, String> testMap = this.constructorTest();
-
         testMap.add("k1", "v1");
         testMap.add("k2", "v2");
-
         assertEquals("v1", testMap.value("k1"));
         assertEquals("v2", testMap.value("k2"));
     }
@@ -145,10 +137,8 @@ public abstract class MapTest {
     @Test
     public void testHasKey() {
         Map<String, String> testMap = this.constructorTest();
-
         testMap.add("k1", "v1");
         testMap.add("k2", "v1");
-
         assertTrue(testMap.hasKey("k1"));
         assertTrue(testMap.hasKey("k2"));
         assertFalse(testMap.hasKey("k3"));
@@ -157,10 +147,8 @@ public abstract class MapTest {
     @Test
     public void testSize() {
         Map<String, String> testMap = this.constructorTest();
-
         testMap.add("k1", "v1");
         testMap.add("k2", "v2");
-
         assertEquals(2, testMap.size());
     }
 
