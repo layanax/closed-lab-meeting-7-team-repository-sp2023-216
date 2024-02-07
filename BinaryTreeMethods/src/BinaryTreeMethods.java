@@ -8,7 +8,7 @@ import components.simplewriter.SimpleWriter1L;
  * Utility class with implementation of {@code BinaryTree} static, generic
  * methods height and isInTree.
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public final class BinaryTreeMethods {
