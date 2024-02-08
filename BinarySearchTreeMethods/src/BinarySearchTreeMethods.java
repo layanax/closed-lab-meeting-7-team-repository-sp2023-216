@@ -53,9 +53,9 @@ public final class BinarySearchTreeMethods {
             T root = t.disassemble(left, right);
             int check = x.compareTo(root);
             if (check > 0) {
-                isInTree(right, x);
+                result = isInTree(right, x);
             } else if (check < 0) {
-                isInTree(left, x);
+                result = isInTree(left, x);
             } else {
                 result = true;
             }

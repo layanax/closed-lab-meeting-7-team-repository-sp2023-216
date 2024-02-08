@@ -70,4 +70,27 @@ public final class BinarySearchTreeMethodsTest {
 
     }
 
+    @Test
+    public void isInTreeTest1() {
+        BinaryTree<String> t = createBSTFromArgs("j", "k", "l");
+        BinaryTree<String> ref = createBSTFromArgs("j", "k", "l");
+        boolean expected = true;
+
+        boolean p = BinarySearchTreeMethods.isInTree(t, "k");
+        assertEquals(expected, p);
+        assertEquals(t, ref);
+
+    }
+
+    @Test
+    public void isInTreeTest2() {
+        BinaryTree<String> t = createBSTFromArgs("j", "k", "l");
+        BinaryTree<String> ref = createBSTFromArgs("j", "k", "l");
+        boolean expected = false;
+
+        boolean p = BinarySearchTreeMethods.isInTree(t, "e");
+        assertEquals(expected, p);
+        assertEquals(t, ref);
+    }
+
 }
