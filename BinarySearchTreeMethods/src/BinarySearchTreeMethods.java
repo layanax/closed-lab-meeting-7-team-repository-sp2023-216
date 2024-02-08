@@ -45,10 +45,24 @@ public final class BinarySearchTreeMethods {
     public static <T extends Comparable<T>> boolean isInTree(BinaryTree<T> t,
             T x) {
 
-        // TODO - fill in body
+        BinaryTree<T> left = t.newInstance();
+        BinaryTree<T> right = t.newInstance();
+        boolean result = false;
 
-        // This line added just to make the component compilable.
-        return false;
+        if (t.height() != 0) {
+            T root = t.disassemble(left, right);
+            int check = x.compareTo(root);
+            if (check > 0) {
+                isInTree(right, x);
+            } else if (check < 0) {
+                isInTree(left, x);
+            } else {
+                result = true;
+            }
+            t.assemble(root, left, right);
+        }
+        return result;
+
     }
 
     /**
