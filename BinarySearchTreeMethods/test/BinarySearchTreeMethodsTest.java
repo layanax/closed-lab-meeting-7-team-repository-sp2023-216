@@ -49,5 +49,25 @@ public final class BinarySearchTreeMethodsTest {
 
     // TODO: add here other test cases for BinarySearchTreeMethods.isInTree
     // (and for BinarySearchTreeMethods.removeSmallest)
+    @Test
+    public void removeSmallestTest1() {
+        BinaryTree<String> t = createBSTFromArgs("b", "a", "c");
+        BinaryTree<String> ref = createBSTFromArgs("b", "c");
+        BinarySearchTreeMethods.removeSmallest(t);
+
+        assertEquals(t, ref);
+    }
+
+    @Test
+    public void removeSmallestTest2() {
+        BinaryTree<String> t = createBSTFromArgs("j", "k", "l", "a", "e", "c",
+                "f");
+        BinaryTree<String> ref = createBSTFromArgs("j", "k", "l", "e", "c",
+                "f");
+        BinarySearchTreeMethods.removeSmallest(t);
+
+        assertEquals(t, ref);
+
+    }
 
 }

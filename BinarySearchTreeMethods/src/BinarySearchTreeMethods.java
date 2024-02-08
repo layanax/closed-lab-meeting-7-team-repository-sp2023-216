@@ -70,6 +70,40 @@ public final class BinarySearchTreeMethods {
 
         // TODO - fill in body
 
+        BinaryTree<T> left = t.newInstance();
+        BinaryTree<T> right = t.newInstance();
+        T root = t.disassemble(left, right);
+
+        T smallest = root;
+
+        if (left.height() > 0) {
+            smallest = removeSmallest(left);
+            t.assemble(root, left, right);
+        } else {
+            t.transferFrom(right);
+        }
+
+        // This line added just to make the component compilable.
+        return smallest;
+    }
+
+    public static <T extends Comparable<T>> void insertInTree(BinaryTree<T> t,
+            T x) {
+        assert t != null : "Violation of: t is not null";
+        assert x != null : "Violation of: x is not null";
+
+        // TODO - fill in body
+
+    }
+
+    public static <T extends Comparable<T>> T removeFromTree(BinaryTree<T> t,
+            T x) {
+        assert t != null : "Violation of: t is not null";
+        assert x != null : "Violation of: x is not null";
+        assert t.size() > 0 : "Violation of: x is in labels(t)";
+
+        // TODO - fill in body
+
         // This line added just to make the component compilable.
         return null;
     }
