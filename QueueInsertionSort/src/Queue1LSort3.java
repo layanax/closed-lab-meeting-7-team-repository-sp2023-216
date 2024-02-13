@@ -62,7 +62,13 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
         assert x != null : "Violation of: x is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO - fill in body
+        Queue<T> newQueue = q.newInstance();
+        while (q.length() != 0 && order.compare(x, q.front()) > 0) {
+            newQueue.enqueue(q.dequeue());
+        }
+        newQueue.enqueue(x);
+        newQueue.append(q);
+        q.transferFrom(newQueue);
 
     }
 
@@ -70,7 +76,11 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
     public void sort(Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
 
-        // TODO - fill in body
+        Queue<T> newQueue = this.newInstance();
+        while (this.length() != 0) {
+            insertInOrder(newQueue, this.dequeue(), order);
+        }
+        this.transferFrom(newQueue);
 
     }
 
