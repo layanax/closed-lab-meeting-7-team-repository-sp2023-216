@@ -98,7 +98,13 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO #1 - fill in body
+        Queue<T> newQueue = q.newInstance();
+        while (q.length() != 0 && order.compare(x, q.front()) > 0) {
+            newQueue.enqueue(q.dequeue());
+        }
+        newQueue.enqueue(x);
+        newQueue.append(q);
+        q.transferFrom(newQueue);
 
     }
 
@@ -166,6 +172,7 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
         // TODO #2 - insert x into machine contents (keep it sorted)
+        insertInOrder(this.entries, x, this.machineOrder);
 
     }
 
@@ -174,6 +181,7 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
         // TODO #3 - switch machine from insertion to extraction mode
+        this.insertionMode = false;
 
     }
 
@@ -184,9 +192,11 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
         // TODO #4 - remove and return first entry in machine contents
+        this.changeToExtractionMode();
+        return this.entries.dequeue();
 
         // This line added just to make the component compilable.
-        return null;
+
     }
 
     @Override
@@ -195,7 +205,7 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         // TODO #5 - report whether machine is in insertion mode
 
         // This line added just to make the component compilable.
-        return false;
+        return this.insertionMode;
     }
 
     @Override
@@ -204,7 +214,7 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         // TODO #6 - report order used by machine
 
         // This line added just to make the component compilable.
-        return null;
+        return this.machineOrder;
     }
 
     @Override
@@ -213,7 +223,7 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         // TODO #7 - report size of machine contents
 
         // This line added just to make the component compilable.
-        return 0;
+        return this.entries.length();
     }
 
     @Override
