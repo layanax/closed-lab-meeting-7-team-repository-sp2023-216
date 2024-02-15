@@ -213,7 +213,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         assert x != null : "Violation of: x is not null";
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
-        // TODO #3 - fill in body
+        this.entries.enqueue(x);
 
     }
 
@@ -221,7 +221,8 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     public final void changeToExtractionMode() {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
-        // TODO #4 - fill in body
+        sort(this.entries, this.machineOrder);
+        this.insertionMode = false;
 
     }
 
@@ -231,19 +232,16 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
                 .isInInsertionMode() : "Violation of: not this.insertion_mode";
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
-        // TODO #5 - fill in body
+        T temp = this.entries.dequeue();
 
         // This line added just to make the component compilable.
-        return null;
+        return temp;
     }
 
     @Override
     public final boolean isInInsertionMode() {
 
-        // TODO #6 - fill in body
-
-        // This line added just to make the component compilable.
-        return false;
+        return this.insertionMode;
     }
 
     @Override
@@ -252,7 +250,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         // TODO #7 - fill in body
 
         // This line added just to make the component compilable.
-        return null;
+        return this.machineOrder;
     }
 
     @Override
@@ -261,7 +259,7 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         // TODO #8 - fill in body
 
         // This line added just to make the component compilable.
-        return 0;
+        return this.entries.length();
     }
 
     @Override
