@@ -69,7 +69,14 @@ public final class Queue1LSort4<T> extends Queue1L<T> {
         assert back != null : "Violation of: back is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO - fill in body
+        while (q.length() != 0) {
+            T digit = q.dequeue();
+            if (order.compare(digit, partitioner) > 1) {
+                back.enqueue(digit);
+            } else {
+                front.enqueue(digit);
+            }
+        }
 
     }
 
@@ -79,6 +86,20 @@ public final class Queue1LSort4<T> extends Queue1L<T> {
         if (this.length() > 1) {
 
             // TODO - fill in body
+
+            Queue<T> front = this.newInstance();
+            Queue<T> back = this.newInstance();
+
+            T digit = this.dequeue();
+
+            partition(this, digit, front, back, order);
+
+            front.sort(order);
+            back.sort(order);
+
+            this.append(front);
+            this.enqueue(digit);
+            this.append(back);
 
             /*
              * Dequeue the partitioning entry from this
