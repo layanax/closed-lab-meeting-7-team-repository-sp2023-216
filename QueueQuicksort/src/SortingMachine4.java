@@ -94,7 +94,14 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
         assert back != null : "Violation of: back is not null";
         assert order != null : "Violation of: order is not null";
 
-        // TODO #1 - fill in body
+        while (q.length() != 0) {
+            T digit = q.dequeue();
+            if (order.compare(digit, partitioner) > 0) {
+                back.enqueue(digit);
+            } else {
+                front.enqueue(digit);
+            }
+        }
 
     }
 
@@ -115,7 +122,19 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
     private static <T> void sort(Queue<T> q, Comparator<T> order) {
         assert order != null : "Violation of: order is not null";
 
-        // TODO #2 - fill in body
+        Queue<T> front = q.newInstance();
+        Queue<T> back = q.newInstance();
+
+        T digit = q.dequeue();
+
+        partition(q, digit, front, back, order);
+
+        front.sort(order);
+        back.sort(order);
+
+        q.append(front);
+        q.enqueue(digit);
+        q.append(back);
 
     }
 
@@ -208,7 +227,8 @@ public class SortingMachine4<T> extends SortingMachineSecondary<T> {
 
     @Override
     public final T removeFirst() {
-        assert !this.isInInsertionMode() : "Violation of: not this.insertion_mode";
+        assert !this
+                .isInInsertionMode() : "Violation of: not this.insertion_mode";
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
         // TODO #5 - fill in body

@@ -71,7 +71,7 @@ public final class Queue1LSort4<T> extends Queue1L<T> {
 
         while (q.length() != 0) {
             T digit = q.dequeue();
-            if (order.compare(digit, partitioner) > 1) {
+            if (order.compare(digit, partitioner) > 0) {
                 back.enqueue(digit);
             } else {
                 front.enqueue(digit);
