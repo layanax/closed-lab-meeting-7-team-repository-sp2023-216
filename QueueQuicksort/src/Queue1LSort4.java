@@ -85,39 +85,35 @@ public final class Queue1LSort4<T> extends Queue1L<T> {
         assert order != null : "Violation of: order is not null";
         if (this.length() > 1) {
 
-            // TODO - fill in body
-
+            /*
+             * Dequeue the partitioning entry from this
+             */
             Queue<T> front = this.newInstance();
             Queue<T> back = this.newInstance();
 
             T digit = this.dequeue();
 
-            partition(this, digit, front, back, order);
-
-            front.sort(order);
-            back.sort(order);
-
-            this.append(front);
-            this.enqueue(digit);
-            this.append(back);
-
-            /*
-             * Dequeue the partitioning entry from this
-             */
-
             /*
              * Partition this into two queues as discussed above (you will need
              * to declare and initialize two new queues)
              */
+            partition(this, digit, front, back, order);
 
             /*
              * Recursively sort the two queues
              */
 
+            front.sort(order);
+            back.sort(order);
+
             /*
              * Reconstruct this by combining the two sorted queues and the
              * partitioning entry in the proper order
              */
+
+            this.append(front);
+            this.enqueue(digit);
+            this.append(back);
 
         }
     }
