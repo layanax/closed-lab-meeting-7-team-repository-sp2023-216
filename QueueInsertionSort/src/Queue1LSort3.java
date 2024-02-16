@@ -66,7 +66,7 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
         Queue<T> newQueue = q.newInstance();
 
         //remove everything smaller than x from q and put it onto temp queue
-        while (q.length() != 0 && order.compare(x, q.front()) < 0) {
+        while (q.length() != 0 && order.compare(x, q.front()) > 0) {
             newQueue.enqueue(q.dequeue());
         }
 
