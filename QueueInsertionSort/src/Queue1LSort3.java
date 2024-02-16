@@ -62,14 +62,22 @@ public final class Queue1LSort3<T> extends Queue1L<T> {
         assert x != null : "Violation of: x is not null";
         assert order != null : "Violation of: order is not null";
 
+        //create a temporary queue
         Queue<T> newQueue = q.newInstance();
-        while (q.length() != 0 && order.compare(x, q.front()) > 0) {
+
+        //remove everything smaller than x from q and put it onto temp queue
+        while (q.length() != 0 && order.compare(x, q.front()) < 0) {
             newQueue.enqueue(q.dequeue());
         }
-        newQueue.enqueue(x);
-        newQueue.append(q);
-        q.transferFrom(newQueue);
 
+        //enqueue x onto temp queue
+        newQueue.enqueue(x);
+
+        //put everything else from q onto temp queue
+        newQueue.append(q);
+
+        //move temp elements back into q
+        q.transferFrom(newQueue);
     }
 
     @Override
