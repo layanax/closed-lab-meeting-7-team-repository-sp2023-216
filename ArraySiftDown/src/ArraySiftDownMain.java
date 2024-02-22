@@ -33,7 +33,7 @@ import components.simplewriter.SimpleWriter1L;
  *   index start and only through entry stop]
  * </pre>
  *
- * @author Put your name here
+ * @author Layan Abdallah
  *
  */
 public final class ArraySiftDownMain {
@@ -188,7 +188,27 @@ public final class ArraySiftDownMain {
          * when using the array representation for a complete binary tree.
          */
 
-        // TODO - fill in body using recursive algorithm from slides
+        int left = 2 * top + 1;
+        int right = 2 * top + 2;
+
+        int smallerChild = top;
+
+        //if left child exists and is smaller than current smallest
+        if (left <= last && array[left] < array[smallerChild]) {
+            smallerChild = left; // Update the smallest index
+        }
+
+        //if right child exists and is smaller than current smallest child
+        if (right <= last && array[right] < array[smallerChild]) {
+            smallerChild = right; //update smallest child
+        }
+
+        if (smallerChild != top) {
+            //swap top with smallest child
+            exchangeEntries(array, top, smallerChild);
+            //recursively siftDown from smallest child
+            siftDown(array, smallerChild, last);
+        }
     }
 
     /**
