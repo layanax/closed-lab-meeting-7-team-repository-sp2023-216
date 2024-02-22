@@ -103,10 +103,10 @@ public abstract class StackTest {
 
     @Test
     public void testPop2() {
-        Stack<String> set = this.createFromArgsTest("Hello,", "Hi");
+        Stack<String> set = this.createFromArgsTest("Hello", "Hi");
         Stack<String> expected = this.createFromArgsTest("Hi");
         String temp = set.pop();
-        assertEquals("Hi", temp);
+        assertEquals("Hello", temp);
         assertEquals(expected, set);
     }
 
