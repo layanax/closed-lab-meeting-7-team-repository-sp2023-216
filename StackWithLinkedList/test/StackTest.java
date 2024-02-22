@@ -1,3 +1,7 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import components.stack.Stack;
 
 /**
@@ -65,6 +69,57 @@ public abstract class StackTest {
         return stack;
     }
 
-    // TODO - add test cases for constructor, push, pop, and length
+    @Test
+    public final void testConstructor() {
+        Stack<String> set = this.constructorTest();
+        Stack<String> expected = this.createFromArgsTest();
+        assertEquals(expected, set);
+    }
+
+    @Test
+    public void testPush1() {
+        Stack<String> set = this.createFromArgsTest();
+        Stack<String> expected = this.createFromArgsTest("Hi");
+        set.push("Hi");
+        assertEquals(expected, set);
+    }
+
+    @Test
+    public void testPush2() {
+        Stack<String> set = this.createFromArgsTest("Hello,");
+        Stack<String> expected = this.createFromArgsTest("Hello,", "Hi");
+        set.push("Hi");
+        assertEquals(expected, set);
+    }
+
+    @Test
+    public void testPop1() {
+        Stack<String> set = this.createFromArgsTest("Hello,");
+        Stack<String> expected = this.createFromArgsTest();
+        String temp = set.pop();
+        assertEquals("Hello", temp);
+        assertEquals(expected, set);
+    }
+
+    @Test
+    public void testPop2() {
+        Stack<String> set = this.createFromArgsTest("Hello,", "Hi");
+        Stack<String> expected = this.createFromArgsTest("Hi");
+        String temp = set.pop();
+        assertEquals("Hi", temp);
+        assertEquals(expected, set);
+    }
+
+    @Test
+    public void testLength1() {
+        Stack<String> set = this.createFromArgsTest();
+        assertEquals(0, set.length());
+    }
+
+    @Test
+    public void testLength2() {
+        Stack<String> set = this.createFromArgsTest("hello", "hi");
+        assertEquals(2, set.length());
+    }
 
 }
