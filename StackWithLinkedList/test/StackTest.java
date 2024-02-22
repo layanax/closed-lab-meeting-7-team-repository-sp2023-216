@@ -86,15 +86,15 @@ public abstract class StackTest {
 
     @Test
     public void testPush2() {
-        Stack<String> set = this.createFromArgsTest("Hello,");
-        Stack<String> expected = this.createFromArgsTest("Hello,", "Hi");
+        Stack<String> set = this.createFromArgsTest("Hello");
+        Stack<String> expected = this.createFromArgsTest("Hi", "Hello");
         set.push("Hi");
         assertEquals(expected, set);
     }
 
     @Test
     public void testPop1() {
-        Stack<String> set = this.createFromArgsTest("Hello,");
+        Stack<String> set = this.createFromArgsTest("Hello");
         Stack<String> expected = this.createFromArgsTest();
         String temp = set.pop();
         assertEquals("Hello", temp);
@@ -103,10 +103,10 @@ public abstract class StackTest {
 
     @Test
     public void testPop2() {
-        Stack<String> set = this.createFromArgsTest("Hello,", "Hi");
+        Stack<String> set = this.createFromArgsTest("Hello", "Hi");
         Stack<String> expected = this.createFromArgsTest("Hi");
         String temp = set.pop();
-        assertEquals("Hi", temp);
+        assertEquals("Hello", temp);
         assertEquals(expected, set);
     }
 
