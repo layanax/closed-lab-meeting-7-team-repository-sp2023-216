@@ -85,8 +85,8 @@ public class List2a<T> extends ListSecondary<T> {
     private void createNewRep() {
         this.preStart = new Node();
         this.preStart.next = null;
-        this.postFinish = this.preStart;
-        this.lastLeft = this.preStart;
+        this.postFinish = new Node();
+        this.lastLeft = this.preStart.next;
         this.leftLength = 0;
         this.rightLength = 0;
     }
@@ -141,7 +141,7 @@ public class List2a<T> extends ListSecondary<T> {
         p.next = q.next;
         q.next = p;
         if (this.rightLength == 0) {
-            this.postFinish = p;
+            this.postFinish = new Node();
         }
         this.rightLength++;
     }
@@ -154,7 +154,7 @@ public class List2a<T> extends ListSecondary<T> {
         p.next = q.next;
         T x = q.data;
         if (this.rightLength == 1) {
-            this.postFinish = this.lastLeft;
+            this.postFinish = new Node();
         }
         this.rightLength--;
         return x;
@@ -188,13 +188,13 @@ public class List2a<T> extends ListSecondary<T> {
 
     @Override
     public final Iterator<T> iterator() {
-        return new List2Iterator();
+        return new List2aIterator();
     }
 
     /**
      * Implementation of {@code Iterator} interface for {@code List2}.
      */
-    private final class List2Iterator implements Iterator<T> {
+    private final class List2aIterator implements Iterator<T> {
 
         /**
          * Current node in the linked list.
@@ -204,13 +204,13 @@ public class List2a<T> extends ListSecondary<T> {
         /**
          * No-argument constructor.
          */
-        private List2Iterator() {
+        private List2aIterator() {
             this.current = List2a.this.preStart.next;
         }
 
         @Override
         public boolean hasNext() {
-            return this.current != null;
+            return this.current != null && this.current.next != null;
         }
 
         @Override
