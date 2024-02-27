@@ -19,20 +19,20 @@ import components.list.ListSecondary;
  * [$this.rightLength >= 0] and
  * [$this.preStart is not null]  and
  * [$this.lastLeft is not null]  and
- * [$this.finish is not null]  and
+ * [$this.postFinish is not null]  and
  * [$this.preStart points to the first node of a singly linked list
  *  containing $this.leftLength + $this.rightLength + 1 nodes]  and
  * [$this.lastLeft points to the ($this.leftLength + 1)-th node in
  *  that singly linked list]  and
- * [$this.finish points to the last node in that singly linked list]  and
- * [$this.finish.next is null]
+ * [$this.postFinish points to the last node in that singly linked list]  and
+ * [$this.postFinish.next is null]
  * </pre>
  * @correspondence <pre>
  * this =
  *  ([data in nodes starting at $this.preStart.next and running through
  *    $this.lastLeft],
  *   [data in nodes starting at $this.lastLeft.next and running through
- *    $this.finish])
+ *    $this.postFinish])
  * </pre>
  */
 public class List2a<T> extends ListSecondary<T> {
@@ -67,7 +67,7 @@ public class List2a<T> extends ListSecondary<T> {
     /**
      * Finish node of linked list.
      */
-    private Node finish;
+    private Node postFinish;
 
     /**
      * Length of this.left.
@@ -85,7 +85,7 @@ public class List2a<T> extends ListSecondary<T> {
     private void createNewRep() {
         this.preStart = new Node();
         this.preStart.next = null;
-        this.finish = this.preStart;
+        this.postFinish = this.preStart;
         this.lastLeft = this.preStart;
         this.leftLength = 0;
         this.rightLength = 0;
@@ -126,7 +126,7 @@ public class List2a<T> extends ListSecondary<T> {
         List2a<T> localSource = (List2a<T>) source;
         this.preStart = localSource.preStart;
         this.lastLeft = localSource.lastLeft;
-        this.finish = localSource.finish;
+        this.postFinish = localSource.postFinish;
         this.rightLength = localSource.rightLength;
         this.leftLength = localSource.leftLength;
         localSource.createNewRep();
@@ -141,7 +141,7 @@ public class List2a<T> extends ListSecondary<T> {
         p.next = q.next;
         q.next = p;
         if (this.rightLength == 0) {
-            this.finish = p;
+            this.postFinish = p;
         }
         this.rightLength++;
     }
@@ -154,7 +154,7 @@ public class List2a<T> extends ListSecondary<T> {
         p.next = q.next;
         T x = q.data;
         if (this.rightLength == 1) {
-            this.finish = this.lastLeft;
+            this.postFinish = this.lastLeft;
         }
         this.rightLength--;
         return x;
@@ -231,7 +231,8 @@ public class List2a<T> extends ListSecondary<T> {
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("remove operation not supported");
+            throw new UnsupportedOperationException(
+                    "remove operation not supported");
         }
 
     }
@@ -242,7 +243,7 @@ public class List2a<T> extends ListSecondary<T> {
 
     @Override
     public final void moveToFinish() {
-        this.lastLeft = this.finish;
+        this.lastLeft = this.postFinish;
         this.leftLength += this.rightLength;
         this.rightLength = 0;
     }
