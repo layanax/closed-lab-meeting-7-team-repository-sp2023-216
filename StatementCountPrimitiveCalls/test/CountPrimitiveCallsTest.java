@@ -13,7 +13,7 @@ import components.utilities.Tokenizer;
  * JUnit test fixture for {@code CountPrimitiveCalls}'s static method
  * countOfPrimitiveCalls.
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public final class CountPrimitiveCallsTest {

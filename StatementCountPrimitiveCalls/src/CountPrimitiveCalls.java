@@ -5,7 +5,7 @@ import components.statement.Statement;
  * instructions (move, turnleft, turnright, infect, skip) in a given
  * {@code Statement}.
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public final class CountPrimitiveCalls {
@@ -37,7 +37,12 @@ public final class CountPrimitiveCalls {
                  * nested statement in the BLOCK.
                  */
 
-                // TODO - fill in case
+                int length = s.lengthOfBlock();
+                for (int i = 0; i < length; i++) {
+                    Statement subLabel = s.removeFromBlock(i);
+                    count += countOfPrimitiveCalls(subLabel);
+                    s.addToBlock(i, subLabel);
+                }
 
                 break;
             }
@@ -47,7 +52,11 @@ public final class CountPrimitiveCalls {
                  * body of the IF.
                  */
 
-                // TODO - fill in case
+                Statement subLabel = s.newInstance();
+                Statement.Condition c = s.disassembleIf(subLabel);
+
+                count = countOfPrimitiveCalls(subLabel);
+                s.assembleIf(c, subLabel);
 
                 break;
             }
@@ -57,7 +66,15 @@ public final class CountPrimitiveCalls {
                  * "then" and "else" bodies of the IF_ELSE.
                  */
 
-                // TODO - fill in case
+                Statement subLabelIf = s.newInstance();
+                Statement subLabelElse = s.newInstance();
+
+                Statement.Condition c = s.disassembleIfElse(subLabelIf,
+                        subLabelElse);
+
+                count = countOfPrimitiveCalls(subLabelIf)
+                        + countOfPrimitiveCalls(subLabelElse);
+                s.assembleIfElse(c, subLabelIf, subLabelElse);
 
                 break;
             }
@@ -67,7 +84,11 @@ public final class CountPrimitiveCalls {
                  * body of the WHILE.
                  */
 
-                // TODO - fill in case
+                Statement subLabel = s.newInstance();
+                Statement.Condition c = s.disassembleWhile(subLabel);
+
+                count = countOfPrimitiveCalls(subLabel);
+                s.assembleWhile(c, subLabel);
 
                 break;
             }
@@ -77,7 +98,14 @@ public final class CountPrimitiveCalls {
                  * whether this is a call to a primitive instruction or not.
                  */
 
-                // TODO - fill in case
+                String label = s.disassembleCall();
+
+                if (label.equals("turnright") || label.equals("move")
+                        || label.equals("infect") || label.equals("turnleft")
+                        || label.equals("skip")) {
+                    count++;
+                }
+                s.assembleCall(label);
 
                 break;
             }
