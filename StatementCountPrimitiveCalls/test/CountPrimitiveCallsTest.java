@@ -56,6 +56,31 @@ public final class CountPrimitiveCallsTest {
         assertEquals(s2, s1);
     }
 
-    // TODO: add other (smaller) test cases as needed
+    @Test
+    public void test2() {
+        Statement s1 = this.createFromArgs("data/test2.bl", true);
+        Statement s2 = this.createFromArgs("data/test2.bl", true);
+        int count = CountPrimitiveCalls.countOfPrimitiveCalls(s1);
+        assertEquals(4, count);
+        assertEquals(s2, s1);
+    }
+
+    @Test
+    public void test3() {
+        Statement s1 = this.createFromArgs("data/test3.bl", true);
+        Statement s2 = this.createFromArgs("data/test3.bl", true);
+        int count = CountPrimitiveCalls.countOfPrimitiveCalls(s1);
+        assertEquals(7, count);
+        assertEquals(s2, s1);
+    }
+
+    @Test
+    public void test4() {
+        Statement s1 = this.createFromArgs("data/test4.bl", false);
+        Statement s2 = this.createFromArgs("data/test4.bl", false);
+        int count = CountPrimitiveCalls.countOfPrimitiveCalls(s1);
+        assertEquals(1, count);
+        assertEquals(s2, s1);
+    }
 
 }

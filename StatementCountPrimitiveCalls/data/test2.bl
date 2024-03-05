@@ -1,0 +1,8 @@
+IF next-is-wall THEN
+    turnleft
+    turnleft
+    move
+Else
+    move
+END IF
+    
