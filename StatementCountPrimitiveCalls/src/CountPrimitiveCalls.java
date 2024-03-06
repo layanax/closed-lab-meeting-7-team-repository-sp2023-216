@@ -103,7 +103,7 @@ public final class CountPrimitiveCalls {
                 if (label.equals("turnright") || label.equals("move")
                         || label.equals("infect") || label.equals("turnleft")
                         || label.equals("skip")) {
-                    count++;
+                    count = 1;
                 }
                 s.assembleCall(label);
 
