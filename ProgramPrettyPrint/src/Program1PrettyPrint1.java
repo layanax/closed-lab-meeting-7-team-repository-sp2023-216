@@ -70,7 +70,8 @@ public final class Program1PrettyPrint1 extends Program1 {
         assert out != null : "Violation of: out is not null";
         assert out.isOpen() : "Violation of: out.is_open";
 
-        // TODO - fill in body
+        out.println("PROGRAM " + this.name() + " IS");
+        printSpaces(out, INDENT_SIZE);
 
     }
 
