@@ -4,6 +4,7 @@ import components.simplereader.SimpleReader;
 import components.simplereader.SimpleReader1L;
 import components.simplewriter.SimpleWriter;
 import components.simplewriter.SimpleWriter1L;
+import components.statement.Statement;
 
 /**
  * Layered implementation of secondary method {@code prettyPrint} for
@@ -72,6 +73,13 @@ public final class Program1PrettyPrint1 extends Program1 {
 
         out.println("PROGRAM " + this.name() + " IS");
         printSpaces(out, INDENT_SIZE);
+
+        Statement body = this.newBody();
+        this.swapBody(body);
+        body.prettyPrint(out, INDENT_SIZE);
+        this.swapBody(body);
+
+        out.println("END " + this.name());
 
     }
 
