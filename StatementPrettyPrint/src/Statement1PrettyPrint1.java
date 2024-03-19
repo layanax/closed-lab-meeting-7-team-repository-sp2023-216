@@ -136,6 +136,8 @@ public final class Statement1PrettyPrint1 extends Statement1 {
         assert out.isOpen() : "Violation of: out.is_open";
         assert offset >= 0 : "Violation of: 0 <= offset";
 
+        final int indent = 4;
+
         switch (this.kind()) {
             case BLOCK: {
 
@@ -155,7 +157,7 @@ public final class Statement1PrettyPrint1 extends Statement1 {
                 printSpaces(out, offset);
 
                 out.println("IF " + toStringCondition(ifCondition) + " THEN");
-                subTree.prettyPrint(out, offset + offset);
+                subTree.prettyPrint(out, offset + indent);
 
                 printSpaces(out, offset);
 
@@ -174,11 +176,11 @@ public final class Statement1PrettyPrint1 extends Statement1 {
 
                 out.println(
                         "IF " + toStringCondition(ifElseCondition) + " THEN");
-                subTreeIf.prettyPrint(out, offset + offset);
+                subTreeIf.prettyPrint(out, offset + indent);
 
                 printSpaces(out, offset);
                 out.println("ELSE");
-                subTreeElse.prettyPrint(out, offset + offset);
+                subTreeElse.prettyPrint(out, offset + indent);
 
                 printSpaces(out, offset);
                 out.println("END IF");
@@ -193,7 +195,7 @@ public final class Statement1PrettyPrint1 extends Statement1 {
                 printSpaces(out, offset);
                 out.println(
                         "WHILE " + toStringCondition(whileCondition) + " DO");
-                subTree.prettyPrint(out, offset);
+                subTree.prettyPrint(out, offset + indent);
 
                 printSpaces(out, offset);
                 out.println("END WHILE");
