@@ -139,31 +139,74 @@ public final class Statement1PrettyPrint1 extends Statement1 {
         switch (this.kind()) {
             case BLOCK: {
 
-                // TODO - fill in case
+                int length = this.lengthOfBlock();
+                for (int i = 0; i < length; i++) {
+                    Statement subTree = this.removeFromBlock(i);
+                    subTree.prettyPrint(out, offset);
+                    this.addToBlock(i, subTree);
+                }
 
                 break;
             }
             case IF: {
 
-                // TODO - fill in case
+                Statement subTree = this.newInstance();
+                Condition ifCondition = this.disassembleIf(subTree);
+                printSpaces(out, offset);
+
+                out.println("IF " + toStringCondition(ifCondition) + " THEN");
+                subTree.prettyPrint(out, offset + offset);
+
+                printSpaces(out, offset);
+
+                out.println("END IF");
+                this.assembleIf(ifCondition, subTree);
 
                 break;
             }
             case IF_ELSE: {
 
-                // TODO - fill in case
+                Statement subTreeIf = this.newInstance();
+                Statement subTreeElse = this.newInstance();
+                Condition ifElseCondition = this.disassembleIfElse(subTreeIf,
+                        subTreeElse);
+                printSpaces(out, offset);
+
+                out.println(
+                        "IF " + toStringCondition(ifElseCondition) + " THEN");
+                subTreeIf.prettyPrint(out, offset + offset);
+
+                printSpaces(out, offset);
+                out.println("ELSE");
+                subTreeElse.prettyPrint(out, offset + offset);
+
+                printSpaces(out, offset);
+                out.println("END IF");
+                this.assembleIfElse(ifElseCondition, subTreeIf, subTreeElse);
 
                 break;
             }
             case WHILE: {
 
-                // TODO - fill in case
+                Statement subTree = this.newInstance();
+                Condition whileCondition = this.disassembleWhile(subTree);
+                printSpaces(out, offset);
+                out.println(
+                        "WHILE " + toStringCondition(whileCondition) + " DO");
+                subTree.prettyPrint(out, offset);
+
+                printSpaces(out, offset);
+                out.println("END WHILE");
+                this.assembleWhile(whileCondition, subTree);
 
                 break;
             }
             case CALL: {
 
-                // TODO - fill in case
+                String call = this.disassembleCall();
+                printSpaces(out, offset);
+                out.println(call);
+                this.assembleCall(call);
 
                 break;
             }
