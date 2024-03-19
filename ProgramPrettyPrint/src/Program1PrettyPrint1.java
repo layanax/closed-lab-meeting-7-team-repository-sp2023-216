@@ -1,3 +1,4 @@
+import components.map.Map;
 import components.program.Program;
 import components.program.Program1;
 import components.simplereader.SimpleReader;
@@ -71,14 +72,47 @@ public final class Program1PrettyPrint1 extends Program1 {
         assert out != null : "Violation of: out is not null";
         assert out.isOpen() : "Violation of: out.is_open";
 
-        out.println("PROGRAM " + this.name() + " IS");
-        printSpaces(out, INDENT_SIZE);
+        //INITIAL CODE FROM LAB
 
+//        out.println("PROGRAM " + this.name() + " IS");
+//        printSpaces(out, INDENT_SIZE);
+//
+//        Statement body = this.newBody();
+//        this.swapBody(body);
+//        body.prettyPrint(out, INDENT_SIZE);
+//        this.swapBody(body);
+//
+//        out.println("END " + this.name());
+
+        //CORRECT CODE FROM LECTURE
+
+        //print the program heading
+        out.println("PROGRAM " + this.name() + " IS");
+        //print the context
+        Map<String, Statement> context = this.newContext();
+        this.swapContext(context);
+        Map<String, Statement> ctext = context.newInstance();
+        out.println();
+
+        while (context.size() > 0) {
+            Map.Pair<String, Statement> pair = context.removeAny();
+            printSpaces(out, INDENT_SIZE);
+            out.println("INSTRUCTION " + pair.key() + " IS");
+            pair.value().prettyPrint(out, INDENT_SIZE * 2);
+            printSpaces(out, INDENT_SIZE);
+            out.println("END " + pair.key());
+            ctext.add(pair.key(), pair.value());
+            out.println();
+        }
+        this.swapContext(ctext);
+
+        //print the body
         Statement body = this.newBody();
         this.swapBody(body);
+        out.println("BEGIN");
         body.prettyPrint(out, INDENT_SIZE);
         this.swapBody(body);
-
+        //print the program end
         out.println("END " + this.name());
 
     }
