@@ -1,3 +1,4 @@
+import components.program.Program;
 import components.queue.Queue;
 import components.simplereader.SimpleReader;
 import components.simplereader.SimpleReader1L;
@@ -136,11 +137,11 @@ public final class Statement1PrettyPrint1 extends Statement1 {
         assert out.isOpen() : "Violation of: out.is_open";
         assert offset >= 0 : "Violation of: 0 <= offset";
 
-        final int indent = 4;
-
         switch (this.kind()) {
             case BLOCK: {
 
+                //loop over each child
+                //prettyPrint each one
                 int length = this.lengthOfBlock();
                 for (int i = 0; i < length; i++) {
                     Statement subTree = this.removeFromBlock(i);
@@ -152,62 +153,89 @@ public final class Statement1PrettyPrint1 extends Statement1 {
             }
             case IF: {
 
+                //disassemble
                 Statement subTree = this.newInstance();
                 Condition ifCondition = this.disassembleIf(subTree);
                 printSpaces(out, offset);
 
+                //print "IF  condition THEN"
                 out.println("IF " + toStringCondition(ifCondition) + " THEN");
-                subTree.prettyPrint(out, offset + indent);
 
+                //prettyPrint its child block with correct offset
+                subTree.prettyPrint(out, offset + Program.INDENT_SIZE);
                 printSpaces(out, offset);
 
+                //print "END IF"
                 out.println("END IF");
+
+                //reassemble
                 this.assembleIf(ifCondition, subTree);
 
                 break;
             }
             case IF_ELSE: {
 
+                //disassemble
                 Statement subTreeIf = this.newInstance();
                 Statement subTreeElse = this.newInstance();
                 Condition ifElseCondition = this.disassembleIfElse(subTreeIf,
                         subTreeElse);
                 printSpaces(out, offset);
 
+                //print "IF  condition THEN"
                 out.println(
                         "IF " + toStringCondition(ifElseCondition) + " THEN");
-                subTreeIf.prettyPrint(out, offset + indent);
 
+                //prettyPrint its child block with correct offset
+                subTreeIf.prettyPrint(out, offset + Program.INDENT_SIZE);
                 printSpaces(out, offset);
-                out.println("ELSE");
-                subTreeElse.prettyPrint(out, offset + indent);
 
+                //print "ELSE"
+                out.println("ELSE");
+                subTreeElse.prettyPrint(out, offset + Program.INDENT_SIZE);
+
+                //print "END IF"
                 printSpaces(out, offset);
                 out.println("END IF");
+
+                //reassemble
                 this.assembleIfElse(ifElseCondition, subTreeIf, subTreeElse);
 
                 break;
             }
             case WHILE: {
 
+                //disassemble
                 Statement subTree = this.newInstance();
                 Condition whileCondition = this.disassembleWhile(subTree);
                 printSpaces(out, offset);
+
+                //print "WHILE condition DO"
                 out.println(
                         "WHILE " + toStringCondition(whileCondition) + " DO");
-                subTree.prettyPrint(out, offset + indent);
 
+                //prettyPrint its child block with correct offset
+                subTree.prettyPrint(out, offset + Program.INDENT_SIZE);
                 printSpaces(out, offset);
+
+                //print "END WHILE"
                 out.println("END WHILE");
+
+                //reassemble
                 this.assembleWhile(whileCondition, subTree);
 
                 break;
             }
             case CALL: {
 
+                //disassemble
                 String call = this.disassembleCall();
                 printSpaces(out, offset);
+
+                //print the call
                 out.println(call);
+
+                //reassemble
                 this.assembleCall(call);
 
                 break;
