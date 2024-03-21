@@ -3,6 +3,9 @@ import static components.utilities.Tokenizer.isIdentifier;
 import static components.utilities.Tokenizer.isKeyword;
 
 import components.queue.Queue;
+import components.queue.Queue1L;
+import components.set.Set;
+import components.set.Set2;
 import components.simplereader.SimpleReader;
 import components.simplereader.SimpleReader1L;
 import components.simplewriter.SimpleWriter;
@@ -85,10 +88,23 @@ public final class Tokenizer {
         assert 0 <= position : "Violation of: 0 <= position";
         assert position < text.length() : "Violation of: position < |text|";
 
-        // TODO - fill in body
+        Set<Character> s = new Set2<Character>();
+        for (int i = 0; i < SEPARATORS.length(); i++) {
+            char c = SEPARATORS.charAt(i);
+            if (!s.contains(c)) {
+                s.add(c);
+            }
+        }
+        int index = position;
+        boolean ifSeparator = s.contains(text.charAt(position));
+        while (index < text.length()
+                && s.contains(text.charAt(index)) == ifSeparator) {
+            index++;
+        }
+        String first = text.substring(position, index);
 
-        // This line added just to make the program compilable.
-        return null;
+        return first;
+
     }
 
     /*
@@ -120,10 +136,29 @@ public final class Tokenizer {
         assert in != null : "Violation of: in is not null";
         assert in.isOpen() : "Violation of: in.is_open";
 
-        // TODO - fill in body
+        Set<Character> s = new Set2<Character>();
+        for (int i = 0; i < SEPARATORS.length(); i++) {
+            char c = SEPARATORS.charAt(i);
+            if (!s.contains(c)) {
+                s.add(c);
+            }
+        }
+        Queue<String> q = new Queue1L<String>();
+        while (!in.atEOS()) {
+            int position = 0;
+            String line = in.nextLine();
+            while (position < line.length()) {
+                String token = nextWordOrSeparator(line, position);
+                if (!s.contains(line.charAt(position))) {
+                    q.enqueue(token);
+                }
+                position += token.length();
+            }
+        }
+        q.enqueue(END_OF_INPUT);
 
-        // This line added just to make the program compilable.
-        return null;
+        return q;
+
     }
 
     /*
