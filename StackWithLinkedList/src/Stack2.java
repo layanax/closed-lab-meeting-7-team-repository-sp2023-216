@@ -188,7 +188,7 @@ public class Stack2<T> extends StackSecondary<T> {
         this.length--;
 
         assert this.conventionHolds();
-        // Fix this line to return the result after checking the convention.
+
         return value;
     }
 
@@ -196,7 +196,7 @@ public class Stack2<T> extends StackSecondary<T> {
     public final int length() {
 
         assert this.conventionHolds();
-        // Fix this line to return the result after checking the convention.
+
         return this.length;
     }
 

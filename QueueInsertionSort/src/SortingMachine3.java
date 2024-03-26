@@ -195,8 +195,6 @@ public class SortingMachine3<T> extends SortingMachineSecondary<T> {
         this.changeToExtractionMode();
         return this.entries.dequeue();
 
-        // This line added just to make the component compilable.
-
     }
 
     @Override

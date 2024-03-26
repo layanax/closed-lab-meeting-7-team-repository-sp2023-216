@@ -18,7 +18,7 @@ import components.simplewriter.SimpleWriter1L;
  *   it has no duplicate labels]
  * </pre>
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public final class BinarySearchTreeMethods {
@@ -82,8 +82,6 @@ public final class BinarySearchTreeMethods {
      */
     public static <T> T removeSmallest(BinaryTree<T> t) {
 
-        // TODO - fill in body
-
         BinaryTree<T> left = t.newInstance();
         BinaryTree<T> right = t.newInstance();
         T root = t.disassemble(left, right);
@@ -97,29 +95,82 @@ public final class BinarySearchTreeMethods {
             t.transferFrom(right);
         }
 
-        // This line added just to make the component compilable.
         return smallest;
     }
 
+    /**
+     *
+     * @param <T>
+     * @param t
+     * @param x
+     */
     public static <T extends Comparable<T>> void insertInTree(BinaryTree<T> t,
             T x) {
         assert t != null : "Violation of: t is not null";
         assert x != null : "Violation of: x is not null";
 
-        // TODO - fill in body
+        //base case: if tree is empty, insert x as root
+        if (t.size() == 0) {
+            t.assemble(x, t.newInstance(), t.newInstance());
+        } else {
+            //recursive case: compare x to root
+            BinaryTree<T> left = t.newInstance();
+            BinaryTree<T> right = t.newInstance();
+
+            T root = t.disassemble(left, right);
+            if (x.compareTo(root) < 0) {
+                insertInTree(left, x); //insert x in left subtree
+            } else {
+                insertInTree(right, x); //insert x in right subtree
+            }
+            t.assemble(root, left, right);
+        }
 
     }
 
+    /**
+     *
+     * @param <T>
+     * @param t
+     * @param x
+     * @return removed
+     */
     public static <T extends Comparable<T>> T removeFromTree(BinaryTree<T> t,
             T x) {
         assert t != null : "Violation of: t is not null";
         assert x != null : "Violation of: x is not null";
         assert t.size() > 0 : "Violation of: x is in labels(t)";
 
-        // TODO - fill in body
+        BinaryTree<T> left = t.newInstance();
+        BinaryTree<T> right = t.newInstance();
+        T root = t.disassemble(left, right);
+        T removed = null;
 
-        // This line added just to make the component compilable.
-        return null;
+        int comparison = x.compareTo(root);
+
+        if (comparison < 0) {
+            removed = removeFromTree(left, x);
+            t.assemble(root, left, right);
+        } else if (comparison > 0) {
+            removed = removeFromTree(right, x);
+            t.assemble(root, left, right);
+        } else {
+            //if root node is the one to be removed
+            if (right.size() == 0) {
+                //if right subtree is empty, left subtree replaces root
+                t.transferFrom(left);
+            } else if (left.size() == 0) {
+                //if left subtree is empty, right subtree replaces root
+                t.transferFrom(right);
+            } else {
+                //if both are non-empty, remove smallest element from right subtree
+                T smallest = removeSmallest(right);
+                t.assemble(smallest, left, right);
+                removed = root;
+            }
+        }
+
+        return removed;
     }
 
     /**
@@ -170,12 +221,12 @@ public final class BinarySearchTreeMethods {
         /*
          * Output BST labels in order.
          */
-//        out.println();
-//        out.println("Labels in BST in order:");
-//        while (t.size() > 0) {
-//            label = removeSmallest(t);
-//            out.println("  " + label);
-//        }
+        out.println();
+        out.println("Labels in BST in order:");
+        while (t.size() > 0) {
+            label = removeSmallest(t);
+            out.println("  " + label);
+        }
 
         in.close();
         out.close();
