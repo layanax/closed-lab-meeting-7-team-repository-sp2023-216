@@ -73,8 +73,8 @@ public final class ExpressionEvaluator {
             number += Integer.toString(digit);
         }
         digit = Integer.parseInt(number);
-        return digit;
 
+        return digit;
     }
 
     /**
