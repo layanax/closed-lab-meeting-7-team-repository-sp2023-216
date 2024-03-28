@@ -10,7 +10,7 @@ import components.utilities.FormatChecker;
 /**
  * Program to test method to interpret a BugsWorld virtual machine program.
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public final class BugsWorldVMInterpreter {
@@ -215,10 +215,20 @@ public final class BugsWorldVMInterpreter {
         assert isValidInstructionLocation(cp, pc) : ""
                 + "Violation of: pc is the location of an instruction byte code in cp";
 
-        // TODO - fill in body
+        int location = 0;
+        //primitive instruction
+        if (isPrimitiveInstructionByteCode(cp[pc])) {
+            location = pc;
+        } else {
+            if (conditionalJumpCondition(wbs, cp[pc])) { //conditional, take jump
+                location += 2;
+            } else { //conditional, don't take jump
+                location++;
+                location = cp[pc];
+            }
+        }
+        return location;
 
-        // This line added just to make the program compilable.
-        return 0;
     }
 
     /**
