@@ -11,6 +11,7 @@ import components.simplewriter.SimpleWriter;
 import components.simplewriter.SimpleWriter1L;
 import components.statement.Statement;
 import components.statement.StatementKernel.Condition;
+import components.utilities.Reporter;
 
 /**
  * Layered implementation of secondary method {@code generatedCode} for
@@ -251,6 +252,8 @@ public final class Program1GeneratedCode1 extends Program1 {
             case CALL: {
 
                 String label = s.disassembleCall();
+                Reporter.assertElseFatalError(context.hasKey(label),
+                        "INVALID INSTRUCTION NAME");
                 if (context.hasKey(label)) {
                     generateCodeForStatement(context.value(label),
                             context.newInstance(), cp);
@@ -289,7 +292,16 @@ public final class Program1GeneratedCode1 extends Program1 {
     public Sequence<Integer> generatedCode() {
         Sequence<Integer> cp = new Sequence1L<Integer>();
 
-        // TODO - fill in body
+        Statement temp = this.newBody();
+        this.swapBody(temp);
+        Map<String, Statement> tempContext = this.newContext();
+        this.swapContext(tempContext);
+
+        generateCodeForStatement(temp, tempContext, cp);
+        cp.add(cp.length(), 5);
+
+        this.swapBody(temp);
+        this.swapContext(tempContext);
 
         return cp;
     }
