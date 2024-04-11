@@ -10,7 +10,7 @@ import components.utilities.FormatChecker;
 /**
  * JUnit test fixture for {@code JCFExplorations}'s static methods.
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public class JCFExplorationsTest {
@@ -185,9 +185,9 @@ public class JCFExplorationsTest {
         /* Setup */
         components.map.Map<String, Integer> m = this.mapCreateFromArgsOSU(
                 "stark", "30000", "lannister", "100000", "snow", "40000");
-        components.map.Map<String, Integer> mExpected =
-                this.mapCreateFromArgsOSU("lannister", "100000", "stark",
-                        "33000", "snow", "44000");
+        components.map.Map<String, Integer> mExpected = this
+                .mapCreateFromArgsOSU("lannister", "100000", "stark", "33000",
+                        "snow", "44000");
         /* The Call */
         JCFExplorations.giveRaise(m, 's', 10);
         /* Evaluation */
@@ -212,10 +212,10 @@ public class JCFExplorationsTest {
     @Test
     public final void testIncrementAllOSUExample1() {
         /* Setup */
-        components.set.Set<NaturalNumber> s =
-                this.setCreateFromArgsOSU("7", "3", "31", "127");
-        components.set.Set<NaturalNumber> sExpected =
-                this.setCreateFromArgsOSU("128", "4", "32", "8");
+        components.set.Set<NaturalNumber> s = this.setCreateFromArgsOSU("7",
+                "3", "31", "127");
+        components.set.Set<NaturalNumber> sExpected = this
+                .setCreateFromArgsOSU("128", "4", "32", "8");
         /* The Call */
         JCFExplorations.incrementAll(s);
         /* Evaluation */
@@ -225,10 +225,10 @@ public class JCFExplorationsTest {
     @Test
     public final void testIncrementAllOSUExample2() {
         /* Setup */
-        components.set.Set<NaturalNumber> s =
-                this.setCreateFromArgsOSU("7", "3", "31", "127");
-        components.set.Set<NaturalNumber> sExpected =
-                this.setCreateFromArgsOSU("128", "4", "32", "8");
+        components.set.Set<NaturalNumber> s = this.setCreateFromArgsOSU("7",
+                "3", "31", "127");
+        components.set.Set<NaturalNumber> sExpected = this
+                .setCreateFromArgsOSU("128", "4", "32", "8");
         /* The Call */
         JCFExplorations.incrementAll(s);
         /* Evaluation */
@@ -242,10 +242,10 @@ public class JCFExplorationsTest {
     @Test
     public final void testIncrementAllJCFExample1() {
         /* Setup */
-        java.util.Set<NaturalNumber> s =
-                this.setCreateFromArgsJCF("7", "3", "31", "127");
-        java.util.Set<NaturalNumber> sExpected =
-                this.setCreateFromArgsJCF("128", "4", "32", "8");
+        java.util.Set<NaturalNumber> s = this.setCreateFromArgsJCF("7", "3",
+                "31", "127");
+        java.util.Set<NaturalNumber> sExpected = this
+                .setCreateFromArgsJCF("128", "4", "32", "8");
         /* The Call */
         JCFExplorations.incrementAll(s);
         /* Evaluation */
@@ -255,10 +255,10 @@ public class JCFExplorationsTest {
     @Test
     public final void testIncrementAllJCFExample2() {
         /* Setup */
-        java.util.Set<NaturalNumber> s =
-                this.setCreateFromArgsJCF("7", "3", "31", "127");
-        java.util.Set<NaturalNumber> sExpected =
-                this.setCreateFromArgsJCF("128", "4", "32", "8");
+        java.util.Set<NaturalNumber> s = this.setCreateFromArgsJCF("7", "3",
+                "31", "127");
+        java.util.Set<NaturalNumber> sExpected = this
+                .setCreateFromArgsJCF("128", "4", "32", "8");
         /* The Call */
         JCFExplorations.incrementAll(s);
         /* Evaluation */

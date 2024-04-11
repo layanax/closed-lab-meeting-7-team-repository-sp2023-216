@@ -1,10 +1,12 @@
+import java.util.Map;
+
 import components.naturalnumber.NaturalNumber;
 
 /**
  * Simple class to experiment with the Java Collections Framework and how it
  * compares with the OSU CSE collection components.
  *
- * @author Put your name here
+ * @author Layan Abdallah & Oak Hodous
  *
  */
 public final class JCFExplorations {
@@ -39,8 +41,15 @@ public final class JCFExplorations {
         assert map != null : "Violation of: map is not null";
         assert raisePercent > 0 : "Violation of: raisePercent > 0";
 
-        // TODO - fill in body
-
+        for (components.map.Map.Pair<String, Integer> entry : map) {
+            String name = entry.key();
+            if (name.charAt(0) == initial) {
+                int currentSalary = entry.value();
+                int raiseAmount = (int) Math
+                        .round(currentSalary * raisePercent / 100.0);
+                map.replaceValue(name, currentSalary + raiseAmount);
+            }
+        }
     }
 
     /**
@@ -73,8 +82,15 @@ public final class JCFExplorations {
         assert map != null : "Violation of: map is not null";
         assert raisePercent > 0 : "Violation of: raisePercent > 0";
 
-        // TODO - fill in body
-
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String name = entry.getKey();
+            if (name.charAt(0) == initial) {
+                int currentSalary = entry.getValue();
+                int raiseAmount = (int) Math
+                        .round(currentSalary * raisePercent / 100.0);
+                map.put(name, currentSalary + raiseAmount);
+            }
+        }
     }
 
     /**
@@ -90,7 +106,13 @@ public final class JCFExplorations {
     public static void incrementAll(components.set.Set<NaturalNumber> set) {
         assert set != null : "Violation of: set is not null";
 
-        // TODO - fill in body
+        components.set.Set<NaturalNumber> tempSet = set.newInstance();
+        tempSet.transferFrom(set);
+
+        for (NaturalNumber number : tempSet) {
+            number.increment();
+            set.add(number);
+        }
 
     }
 
@@ -112,7 +134,9 @@ public final class JCFExplorations {
     public static void incrementAll(java.util.Set<NaturalNumber> set) {
         assert set != null : "Violation of: set is not null";
 
-        // TODO - fill in body
+        for (NaturalNumber number : set) {
+            number.increment();
+        }
 
     }
 
