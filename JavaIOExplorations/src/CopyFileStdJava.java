@@ -29,8 +29,14 @@ public final class CopyFileStdJava {
 
         BufferedReader in;
         PrintWriter out;
+
         try {
             in = new BufferedReader(new FileReader(args[0]));
+        } catch (IOException error) {
+            System.err.println("Error: could not open file");
+            return;
+        }
+        try {
             out = new PrintWriter(new BufferedWriter(new FileWriter(args[1])));
         } catch (IOException error) {
             System.err.println("Error: could not open file");
@@ -39,7 +45,7 @@ public final class CopyFileStdJava {
         try {
             String input = in.readLine();
             while (input != null) {
-                out.println(in);
+                out.println(input);
                 input = in.readLine();
             }
         } catch (IOException error) {
@@ -47,7 +53,6 @@ public final class CopyFileStdJava {
                     "Error: could not read from file or write to file");
         }
         try {
-
             in.close();
             out.close();
         } catch (IOException error) {
